@@ -43,19 +43,28 @@ const bigBall = Bodies.circle(w / 2, h / 2, 250, {  //want the ball snap in the 
     render: {
         fillStyle: "#ffffff",
     }
-})    
+})
 
-const ground = Bodies.rectangle(w / 2, h + 50, w, 100, {
+const wallOptions = {
     isStatic: true,
     render: {
-        visible: false,
+        visible: true,
+        fillStyle: "#ffffff",
     }
-})
+}
+
+const ground = Bodies.rectangle(w / 2, h + 150, w, 100, wallOptions)
+const ceiling = Bodies.rectangle(w / 2, -100, w, 100, wallOptions)
+const leftWall = Bodies.rectangle(w / 2, h + 50, w, 100, wallOptions)
+const rightWall = Bodies.rectangle(w / 2, h + 50, w, 100, wallOptions)
 
 // world = calculator
 World.add(engine.world, [
     bigBall,
     ground,
+    ceiling,
+    leftWall,
+    rightWall
 ])
 
 // when we click the page, add a new shape
