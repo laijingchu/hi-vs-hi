@@ -22,7 +22,7 @@ const renderer = Matter.Render.create({
         height: h,
         width: w,
         background: "#000000",
-        wireframes: false,
+        wireframes: false, // needed for pure black
         pixelRatio: window.devicePixelRatio,
     }
 })
@@ -31,8 +31,32 @@ const renderer = Matter.Render.create({
 // documentation: https://brm.io/matter-js/docs/classes/Bodies.html
 // Matter.Bodies.circle(x, y, radius, [options], [maxSides]) 
 const createShape = function (x, y) {
-    return Bodies.circle(x, y, 20 + 20 * Math.random())
+    return Bodies.circle(x, y, 20 + 20 * Math.random(), {
+        render: {
+                fillStyle: "red",
+        }
+    })
 }
+
+const bigBall = Bodies.circle(w / 2, h / 2, 250, {  //want the ball snap in the middle of the page
+    isStatic: true,
+    render: {
+        fillStyle: "#ffffff",
+    }
+})    
+
+const ground = Bodies.rectangle(w / 2, h + 50, w, 100, {
+    isStatic: true,
+    render: {
+        visible: false,
+    }
+})
+
+// world = calculator
+World.add(engine.world, [
+    bigBall,
+    ground,
+])
 
 // when we click the page, add a new shape
 document.addEventListener("click", function(event) {
