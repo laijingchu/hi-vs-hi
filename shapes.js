@@ -1,7 +1,7 @@
 // aliases via deconstruction to make the code cleaner
 // const Engine = Matter.Engine
 // const Render = Matter.Render
-const {Engine, Render, Bodies, World, MouseConstraint} = Matter
+const {Engine, Render, Bodies, World, MouseConstraint, Composites} = Matter
 
 
 // where is matter being deployed?
@@ -32,6 +32,7 @@ const renderer = Matter.Render.create({
 // Matter.Bodies.circle(x, y, radius, [options], [maxSides]) 
 const createShape = function (x, y) {
     return Bodies.circle(x, y, 20 + 20 * Math.random(), {
+        frictionAir: 1,
         render: {
                 fillStyle: "red",
         }
@@ -67,6 +68,11 @@ const mouseControl = MouseConstraint.create(engine, {
     }
 })
 
+const initialShapes = Composites.stack(50, 50, 15, 5, 40, 40, function(x, y) {
+    return createShape(x, y)
+  });
+
+
 // world = calculator
 World.add(engine.world, [
     bigBall,
@@ -75,6 +81,7 @@ World.add(engine.world, [
     leftWall,
     rightWall,
     mouseControl,
+    initialShapes
 ])
 
 // when we click the page, add a new shape
