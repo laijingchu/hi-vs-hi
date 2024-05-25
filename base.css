@@ -60,3 +60,13 @@ input, textarea, select {
   text-rendering: optimizeLegibility;
 }
 
+section.split {
+	position: fixed;
+	top: 0;
+	right: 0;
+	width: 50%;
+	height: 100%;
+	background-color: white;
+	mix-blend-mode: difference; /* added */
+	pointer-events: none; /* means ignore this */
+}
