@@ -89,8 +89,6 @@ World.add(engine.world, [
     initialShapes
 ])
 
-test let me try again
-
 // when we click the page, add a new shape
 document.addEventListener("click", function(event) {
     const shape = createShape(event.pageX, event.pageY)
