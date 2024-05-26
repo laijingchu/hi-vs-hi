@@ -112,8 +112,8 @@ World.add(engine.world, [
     bigBall,
     ground,
     ceiling,
-    // leftWall,
-    // rightWall,
+    leftWall,
+    rightWall,
     mouseControl,
     initialShapes
 ]);
