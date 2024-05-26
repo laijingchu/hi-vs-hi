@@ -1,7 +1,7 @@
 // aliases via deconstruction to make the code cleaner
 // const Engine = Matter.Engine
 // const Render = Matter.Render
-const { Engine, Render, Bodies, World, MouseConstraint, Composites } = Matter;
+const { Engine, Render, Bodies, World, MouseConstraint, Composites, gravity } = Matter;
 
 // where is matter being deployed?
 const sectionTag = document.querySelector("section.shapes");
@@ -43,7 +43,7 @@ const createShape = function (x, y) {
     });
 };
 
-const bigBall = Bodies.circle(w / 2, h / 2, 250, { // want the ball snap in the middle of the page
+const bigBall = Bodies.circle(w / 2, h / 2, Math.min(w / 4, h / 4), { // want the ball snap in the middle of the page
     isStatic: true,
     render: {
         fillStyle: "#ffffff",
@@ -92,6 +92,20 @@ document.addEventListener("click", function (event) {
     const shape = createShape(event.pageX, event.pageY);
     World.add(engine.world, shape);
 });
+
+
+// adding a gravity loop
+let time = 0 // "i want to change something, therefore use let"
+const changeGravity = function () {
+	time = time + 0.01
+	engine.world.gravity.x = Math.sin(time)
+	engine.world.gravity.y = Math.cos(time)
+	console.log (time, gravity)
+	requestAnimationFrame(changeGravity)	
+};
+
+	/* once this is ready for the next frame, run `changeGravity` again! */
+changeGravity()
 
 //run both the engine (turn the car on 🚗), and the renderer
 // Redacted the following by deconstruction
