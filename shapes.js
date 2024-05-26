@@ -95,17 +95,17 @@ document.addEventListener("click", function (event) {
 
 
 // adding a gravity loop
-let time = 0 // "i want to change something, therefore use let"
+/* let time = 0 // "i want to change something, therefore use let"
 const changeGravity = function () {
 	time = time + 0.01
 	engine.world.gravity.x = Math.sin(time)
 	engine.world.gravity.y = Math.cos(time)
 	console.log (time, gravity)
 	requestAnimationFrame(changeGravity)	
-};
+}; 
 
 	/* once this is ready for the next frame, run `changeGravity` again! */
-changeGravity()
+// changeGravity()
 
 //run both the engine (turn the car on 🚗), and the renderer
 // Redacted the following by deconstruction
