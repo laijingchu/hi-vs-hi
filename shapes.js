@@ -1,3 +1,8 @@
+// plugin: Matter-wrap
+Matter.use(
+    'matter-wrap' // PLUGIN_NAME
+  );
+
 // aliases via deconstruction to make the code cleaner
 // const Engine = Matter.Engine
 // const Render = Matter.Render
@@ -31,7 +36,11 @@ const renderer = Render.create({
 // Matter.Bodies.circle(x, y, radius, [options], [maxSides])
 // Matter.Bodies.rectangle(x, y, width, height, [options])
 const createShape = function (x, y) {
-    return Bodies.rectangle(x, y, 35, 50, {
+
+    const randomNum = Math.random();
+
+    if (randomNum > 0.5) {
+        return Bodies.rectangle(x, y, 35, 50, {
         // frictionAir: 1,
         render: {
             sprite: {
@@ -39,9 +48,30 @@ const createShape = function (x, y) {
                 xScale: 0.5,
                 yScale: 0.5
             }
-        }
+        },
+        // plugin: {
+        //     wrap: {
+        //         min: {x: 0, y:0},
+        //         max: {x: w, y: h}
+        //     }
+        // }
     });
+} else {
+        return Bodies.circle(x, y, 25, {
+            render: {
+                sprite: {
+                    texture: "assets/ball.png",
+                    xScale: 0.5,
+                    yScale: 0.5
+                    }
+                }
+
+            })
+        }
 };
+
+
+
 
 const bigBall = Bodies.circle(w / 2, h / 2, Math.min(w / 4, h / 4), { // want the ball snap in the middle of the page
     isStatic: true,
@@ -76,13 +106,14 @@ const initialShapes = Composites.stack(70, 70, 25, 5, 40, 40, function (x, y) {
     return createShape(x, y);
 });
 
+
 // world = calculator
 World.add(engine.world, [
     bigBall,
     ground,
     ceiling,
-    leftWall,
-    rightWall,
+    // leftWall,
+    // rightWall,
     mouseControl,
     initialShapes
 ]);
@@ -97,7 +128,7 @@ document.addEventListener("click", function (event) {
 window.addEventListener("deviceorientation", function (event) {
     engine.world.gravity.x = event.gamma / 30
     engine.world.gravity.y = event.beta / 30
-  })
+  });
   
 
 // adding a gravity loop
