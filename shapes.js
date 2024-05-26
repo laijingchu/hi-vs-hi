@@ -95,9 +95,10 @@ document.addEventListener("click", function (event) {
 
 // Add device orientation
 window.addEventListener("deviceorientation", function (event) {
-	engine.world.gravity.x = event.gamma / 30 // left to right
-	engine.world.gravity.y = event.beta / 30 // front-back
-});
+    engine.world.gravity.x = event.gamma / 30
+    engine.world.gravity.y = event.beta / 30
+  })
+  
 
 // adding a gravity loop
 /* let time = 0 // "i want to change something, therefore use let"
