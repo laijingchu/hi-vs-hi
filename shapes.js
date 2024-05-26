@@ -93,6 +93,11 @@ document.addEventListener("click", function (event) {
     World.add(engine.world, shape);
 });
 
+// Add device orientation
+window.addEventListener("deviceorientation", function (event) {
+	engine.world.gravity.x = event.gamma / 30 // left to right
+	engine.world.gravity.y = event.beta / 30 // front-back
+});
 
 // adding a gravity loop
 /* let time = 0 // "i want to change something, therefore use let"
